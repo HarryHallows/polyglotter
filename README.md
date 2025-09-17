@@ -8,8 +8,8 @@ Polyglotter is a Chrome extension that lets you translate highlighted text on an
 
 - Capture highlighted text on any webpage.
 - Send selected text to the background service worker.
-- Popup interface to select the target translation language.
-- Ready for integration with translation APIs (e.g., Google Translate, DeepL).
+- A pop-up interface to select the target translation language.
+- Ready for integration with translation APIs (Google TranslatorAPI).
 - Built with React, TypeScript, and Vite.
 - Fully compatible with Chrome Manifest V3.
 
@@ -19,6 +19,11 @@ Polyglotter is a Chrome extension that lets you translate highlighted text on an
 
 ```bash
 project-root/
+
+├─ public/
+│ ├─ icons/
+│ │ └─ Polyglotter_icon.png
+│ └─ manifest.json # Chrome extension manifest
 ├─ src/
 │ ├─ background/
 │ │ └─ index.ts # Service worker logic
@@ -28,7 +33,6 @@ project-root/
 │ │ ├─ index.html # Popup HTML
 │ │ └─ main.tsx # Popup React app
 ├─ dist/ # Built extension files
-├─ manifest.json # Chrome extension manifest
 ├─ vite.config.ts # Vite build config for popup + background
 ├─ content.vite.config.ts # Vite build config for content script
 ├─ package.json
@@ -61,8 +65,8 @@ npm run build
 1. Open any webpage.
 2. Highlight some text.
 3. The content script automatically captures the selection and logs it in the background service worker console.
-4. Open the popup to select your target translation language.
-5. (Future) Translations can be sent to a translation API and displayed inline or via popup.
+4. Open the pop-up to select your target translation language.
+5. (Future) Translations can be sent to a translation API and displayed inline or via a pop-up.
 
 ### Development Notes
 

@@ -1,0 +1,17 @@
+{
+  "name": "Polyglotter",
+  "description": "Extension to translate highlighted text on a web page to a selected language",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icons/Polyglotter_icon.png"
+    },
+  "permissions": [
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}

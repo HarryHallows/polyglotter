@@ -4,8 +4,8 @@ console.log("[Content] Script loaded");
 document.addEventListener("mouseup", () => {
   const selected = window.getSelection()?.toString().trim();
   if (selected) {
-    chrome.runtime.sendMessage({ type: "SELECTION", text: selected }, (res) => {
-      console.log("[Content] Message sent", res);
+    chrome.runtime.sendMessage({ type: "TRANSLATE", text: selected }, (res) => {
+      console.log("[Content] Got translation", res?.translated);
     });
   }
 });

@@ -1,69 +1,79 @@
-# React + TypeScript + Vite
+# Polyglotter
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Polyglotter is a Chrome extension that lets you translate highlighted text on any webpage into a selected language. The popup allows you to choose the target language, while the content script captures text selections and sends them to the background service worker for processing.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- Capture highlighted text on any webpage.
+- Send selected text to the background service worker.
+- A pop-up interface to select the target translation language.
+- Ready for integration with translation APIs (Google TranslatorAPI).
+- Built with React, TypeScript, and Vite.
+- Fully compatible with Chrome Manifest V3.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Folder Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+```bash
+project-root/
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+├─ public/
+│ ├─ icons/
+│ │ └─ Polyglotter_icon.png
+│ └─ manifest.json # Chrome extension manifest
+├─ src/
+│ ├─ background/
+│ │ └─ index.ts # Service worker logic
+│ ├─ content/
+│ │ └─ index.ts # Content script capturing highlighted text
+│ ├─ popup/
+│ │ ├─ index.html # Popup HTML
+│ │ └─ main.tsx # Popup React app
+├─ dist/ # Built extension files
+├─ vite.config.ts # Vite build config for popup + background
+├─ content.vite.config.ts # Vite build config for content script
+├─ package.json
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Installation
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone this repository:
+
+```bash
+git clone https://github.com/yourusername/polyglotter.git
+cd polyglotter
+
+npm install
+
+npm run build
 ```
+
+### Loading the Extension in Chrome
+
+1. Open Chrome and go to chrome://extensions.
+2. Enable Developer mode (top right corner).
+3. Click Load unpacked.
+4. Select the dist/ folder.
+
+### Usage
+
+1. Open any webpage.
+2. Highlight some text.
+3. The content script automatically captures the selection and logs it in the background service worker console.
+4. Open the pop-up to select your target translation language.
+5. (Future) Translations can be sent to a translation API and displayed inline or via a pop-up.
+
+### Development Notes
+
+- Content script must be built as an IIFE because Chrome MV3 does not allow modules in content scripts.
+
+- Background and popup are ES modules.
+
+- Console logs from the content script appear in the webpage DevTools console.
+
+- Console logs from the background service worker appear in the service worker inspector in chrome://extensions.
